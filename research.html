@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP — adapted for CQMC Group website
+-->
+<html lang="en">
+
+<head>
+    <title>Research — CQMC Group</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Research interests of the CQMC group: fuzzy sphere, twisted bilayer graphene, flat-band systems, and superconductivity." />
+    <link rel="icon" href="images/favicon-32.png" sizes="32x32" />
+    <link rel="icon" href="images/favicon-16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+    <!-- Social preview. og:url and og:image must be ABSOLUTE, so this base has to
+         be updated when the site moves to its final address (GitHub Pages). -->
+    <link rel="canonical" href="https://www.pks.mpg.de/~jhofmann/research.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CQMC Group" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Research — CQMC Group" />
+    <meta property="og:description" content="Research interests of the CQMC group: fuzzy sphere, twisted bilayer graphene, flat-band systems, and superconductivity." />
+    <meta property="og:url" content="https://www.pks.mpg.de/~jhofmann/research.html" />
+    <meta property="og:image" content="https://www.pks.mpg.de/~jhofmann/images/og-preview.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="CQMC — Correlated Quantum Matter Computations, research group of Dr. Johannes S. Hofmann" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Research — CQMC Group" />
+    <meta name="twitter:description" content="Research interests of the CQMC group: fuzzy sphere, twisted bilayer graphene, flat-band systems, and superconductivity." />
+    <meta name="twitter:image" content="https://www.pks.mpg.de/~jhofmann/images/og-preview.jpg" />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/custom.css" />
+    <script src="assets/js/theme-toggle.js"></script>
+    <script src="assets/js/nav-active.js"></script>
+</head>
+
+<body class="is-preload">
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <h1><a href="index.html">CQMC</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="cv.html">CV</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li>
+                        <button class="theme-toggle-btn" aria-label="Toggle Theme">
+                            <span class="theme-toggle-icon icon solid fa-moon"></span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <section id="main" class="container">
+
+            <header class="major">
+                <h2>Research Interests</h2>
+            </header>
+
+            <!-- Topic 1: Fuzzy Sphere -->
+            <section class="box" id="fuzzy-sphere">
+                <h3>1. Fuzzy Sphere Regularization</h3>
+                <div style="display: block;">
+                    <img loading="lazy" src="images/fuzzy-sphere.png" alt="Fuzzy Sphere"
+                        style="width:300px; max-width:100%; border-radius:6px; float: right; margin: 0 0 1em 1.5em;" />
+                    <p>
+                        A central challenge in modern theoretical physics is the non-perturbative understanding of
+                        quantum
+                        phase transitions and conformal field theories (CFTs) in 2+1 dimensions. We develop and
+                        apply the
+                        <strong>fuzzy sphere regularization</strong>, a new computational framework that places
+                        quantum
+                        many-body systems on the non-commutative (fuzzy) two-sphere. This geometry allows the
+                        state-operator
+                        correspondence of radial quantization to be exploited directly in a lattice model, turning
+                        the study
+                        of 3D CFTs into a tractable quantum many-body problem.
+                    </p>
+                    <p>
+                        By combining this setup with <strong>sign-problem-free quantum Monte Carlo</strong>, we can
+                        extract
+                        CFT data — scaling dimensions, operator content, and symmetry quantum numbers — with high
+                        precision.
+                        Recent highlights include the demonstration of emergent conformal symmetry at the 3D Ising
+                        transition (<a href="https://arxiv.org/abs/2210.13482" target="_blank">PRX 2023</a>) and the
+                        extension to SU(2) quantum chromodynamics and deconfined quantum critical points (<a
+                            href="https://arxiv.org/abs/2602.11255" target="_blank">2026</a>).
+                    </p>
+                </div>
+            </section>
+
+            <!-- Topic 2: Twisted Bilayer Graphene -->
+            <section class="box" id="twisted-bilayer-graphene">
+                <h3>2. Twisted Bilayer Graphene</h3>
+                <div style="display: block;">
+                    <img loading="lazy" src="images/tbg.png" alt="Twisted Bilayer Graphene"
+                        style="width:500px; max-width:100%; border-radius:6px; float:right; margin: 0 0 1em 1.5em;" />
+                    <p>
+                        Magic-angle twisted bilayer graphene (TBG) is a paradigmatic moiré material that hosts a
+                        rich
+                        variety of correlated phases — insulating states, unconventional superconductivity, and
+                        pseudogap
+                        behavior — arising from electron correlations in nearly flat topological bands. The
+                        theoretical
+                        description of these phenomena is particularly challenging due to multiple electron flavors,
+                        long-range Coulomb interactions, and topological obstructions to defining simple lattice
+                        models.
+                    </p>
+                    <p>
+                        We developed the first <strong>unbiased quantum Monte Carlo simulations of realistic
+                            magic-angle TBG
+                            models</strong> at charge neutrality, formulated in momentum space to avoid the sign
+                        problem
+                        even in the presence of band dispersion and symmetry breaking. These simulations revealed
+                        the
+                        emergence of an insulating Kramers inter-valley coherent state, a pseudogap regime, and
+                        specific
+                        predictions for tunneling spectra (<a href="https://arxiv.org/abs/2105.12112"
+                            target="_blank">PRX
+                            2022</a>). More recently, we have studied topological Chern band models relevant to TBG,
+                        finding
+                        intertwined orders, skyrmion-mediated superconductivity, and proximity to deconfined quantum
+                        critical points.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Topic 3: Flat-Band Systems -->
+            <section class="box" id="flat-band-systems">
+                <h3>3. Flat-Band Systems</h3>
+                <div style="display: block;">
+                    <img loading="lazy" src="images/flatband-sc.png" alt="Flat-Band Superconductivity"
+                        style="width:300px; max-width:100%; border-radius:6px; float: right; margin: 0 0 1em 1.5em;" />
+                    <p>
+                        When electronic bands become dispersionless (flat), the kinetic energy is quenched and
+                        interactions
+                        completely dominate. The ground state is then determined by the subtle interplay of
+                        interactions and
+                        <strong>band geometry</strong> — captured by quantities like the Fubini-Study metric and the
+                        Berry
+                        curvature. We study models of flat bands with tunable topology and quantum metric, using
+                        exact
+                        quantum Monte Carlo methods, to map out the phase diagrams of competing orders.
+                    </p>
+                    <p>
+                        Key results include: the discovery of a <strong>supersolid phase</strong> — where
+                        superconductivity
+                        and charge density wave order coexist — in a flat-band model with tunable quantum metric (<a
+                            href="https://arxiv.org/abs/2204.02994" target="_blank">PRL 2023</a>); evidence for
+                        intertwined
+                        magnetism and superconductivity in isolated correlated flat bands with topological Chern
+                        number (<a href="https://arxiv.org/abs/2402.09506" target="_blank">PRB 2024</a>); and the
+                        broader study of
+                        how band geometry controls the onset and character of superconductivity in the flat-band
+                        limit.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Topic 4: Superconductivity -->
+            <section class="box" id="superconductivity">
+                <h3>4. Superconductivity</h3>
+                <div style="display: block;">
+                    <img loading="lazy" src="images/cooper_pair_thumbnail.png"
+                        alt="Cooper pair wave function on a lattice, showing alternating sign lobes in real space"
+                        style="width:240px; max-width:100%; border-radius:6px; float: right; margin: 0 0 1em 1.5em;" />
+                    <p>
+                        Unconventional superconductivity arising from repulsive interactions remains one of the most
+                        challenging problems in condensed matter physics. We study mechanisms of superconductivity from
+                        multiple angles using exact numerical methods. A recurring theme is understanding how
+                        non-standard
+                        ingredients — flat bands, band topology, quantum geometry, proximity to a metal, or proximity to
+                        a
+                        quantum critical point — can enhance or modify superconductivity.
+                    </p>
+                    <p>
+                        Highlights include: demonstrating that widely-used heuristic bounds on the superconducting
+                        transition temperature T<sub>c</sub> (based on the Fermi temperature, superfluid stiffness, or
+                        Debye
+                        frequency) are not fundamental and can be violated (<a href="https://arxiv.org/abs/2105.09322"
+                            target="_blank">npj QM 2022</a>); spin-polaron-mediated superconductivity in doped Chern
+                        antiferromagnets; and reservoir-enhanced superconductivity in 1D systems (<a
+                            href="https://arxiv.org/abs/2507.18707" target="_blank">2025</a>). We also develop tools to
+                        diagnose superconducting order without prior assumptions, using the Penrose-Onsager criterion
+                        for
+                        Cooper pair condensation (<a href="https://arxiv.org/abs/2601.18868"
+                            target="_blank">2026</a>).
+                    </p>
+                </div>
+            </section>
+
+            <!-- Topic 5: Nonequilibrium Many-Body Dynamics -->
+            <section class="box" id="nonequilibrium-dynamics">
+                <h3>5. Nonequilibrium Many-Body Dynamics</h3>
+                <div style="display: block;">
+                    <img loading="lazy" src="images/circuit_thumbnail.png"
+                        alt="Brickwork quantum circuit: two-site gates on alternating links with measurements on the boundary sites"
+                        style="width:300px; max-width:100%; border-radius:6px; float: right; margin: 0 0 1em 1.5em;" />
+                    <p>
+                        A major frontier in theoretical physics is the behavior of strongly correlated quantum systems driven 
+                        out of thermal equilibrium. In this regime, the standard rules of thermodynamics do not apply, 
+                        enabling the dynamic stabilization of novel phases of matter that have no equilibrium counterparts. 
+                        We explore nonequilibrium quantum phenomena to understand how time-dependent driving or sudden quenches 
+                        can engineer novel states.
+                    </p>
+                    <p>
+                        Our efforts focus on <strong>quench dynamics</strong> (unveiling the relaxation, thermalization, 
+                        and quantum transport of isolated many-body systems) and <strong>periodically driven (Floquet) systems</strong> 
+                        (where external fields can modify effective Hamiltonian parameters and generate dynamical topology). 
+                        To model these out-of-equilibrium processes, we utilize real-time quantum Monte Carlo simulations 
+                        and tensor network methods. A recent highlight includes mapping how metallic reservoirs can dynamically 
+                        enhance superconductivity and near-long-range magnetic order in one-dimensional systems (<a 
+                            href="https://arxiv.org/abs/2602.11153" target="_blank">2026</a>).
+                    </p>
+                </div>
+            </section>
+
+            <!-- Software -->
+            <section class="box" id="software">
+                <h3>Software: ALF</h3>
+                <div class="alf-callout">
+                    <p>
+                        A common thread through all of the above is the numerical machinery that makes it
+                        possible. We are core developers of
+                        <a href="https://alf.physik.uni-wuerzburg.de" target="_blank"><strong>ALF
+                                (Algorithms for Lattice Fermions)</strong></a> &mdash; in the project's own
+                        words, an &ldquo;open-source, high-performance, general code for auxiliary-field
+                        quantum Monte Carlo simulations&rdquo; of correlated fermions on a lattice. We have
+                        contributed as a core developer for over a decade, and ALF underpins much of the
+                        research described on this page.
+                    </p>
+                    <p>
+                        ALF is developed by the ALF Collaboration, ships with a Python interface
+                        (<a href="https://github.com/ALF-QMC/pyALF" target="_blank">pyALF</a>) and a library
+                        of ready-made Hamiltonians, and is documented in
+                        <a href="https://doi.org/10.21468/SciPostPhys.3.2.013" target="_blank">SciPost
+                            Phys. 3, 013 (2017)</a> and
+                        <a href="https://doi.org/10.21468/SciPostPhysCodeb.1-v2.4" target="_blank">SciPost
+                            Phys. Codebases 1-v2.4 (2025)</a>.
+                    </p>
+                    <ul class="actions alf-actions">
+                        <li><a href="https://alf.physik.uni-wuerzburg.de" class="button primary small"
+                                target="_blank">ALF project</a></li>
+                        <li><a href="https://github.com/ALF-QMC/ALF" class="button alt small"
+                                target="_blank">Source code</a></li>
+                        <li><a href="https://alf.physik.uni-wuerzburg.de/page/documentation"
+                                class="button alt small" target="_blank">Documentation</a></li>
+                    </ul>
+                </div>
+                <p class="software-note">
+                    Beyond ALF, we contribute to hybrid <strong>MPS&nbsp;+&nbsp;QMC</strong> approaches that
+                    combine matrix-product states with quantum Monte Carlo to reduce entanglement and the
+                    sign problem at the same time (<a href="https://arxiv.org/abs/2411.00480"
+                        target="_blank">2024</a>), and we are broadening our toolkit with tensor-network and
+                    exact-diagonalization methods.
+                </p>
+            </section>
+
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="https://arxiv.org/a/hofmann_j_2" class="icon solid fa-file-alt" target="_blank"><span
+                            class="label">arXiv</span></a></li>
+                <li><a href="https://scholar.google.com/citations?user=z5p5AsgAAAAJ"
+                        class="icon solid fa-graduation-cap" target="_blank"><span class="label">Google
+                            Scholar</span></a></li>
+                <li><a href="mailto:jhofmann@pks.mpg.de" class="icon solid fa-envelope"><span
+                            class="label">Email</span></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Johannes S. Hofmann. All rights reserved.</li>
+                <li>Max Planck Institute for the Physics of Complex Systems, Dresden</li>
+                <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

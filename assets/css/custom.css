@@ -1,0 +1,1206 @@
+/* Self-hosted Outfit + Inter. Previously loaded from fonts.googleapis.com, which
+   transmitted every visitor's IP to Google; see fonts.css and privacy.html. */
+@import url('fonts.css');
+
+/* ==========================================================================
+   CQMC Modern styling override sheet
+   ========================================================================== */
+
+/* Design Tokens & Theme Variables
+   --------------------------------------------------------------------------
+   Light is the default. `:root` and `html[data-theme="light"]` previously held
+   two byte-identical copies of the same values, so every colour change had to be
+   made twice; they are one selector list now. Specificity is still evaluated per
+   selector, so `html[data-theme="light"]` (0,1,1) continues to outrank the
+   `prefers-color-scheme: dark` block's `:root` (0,1,0) — i.e. choosing light on a
+   dark-set system still wins, exactly as before.
+
+   The dark values genuinely must appear twice: once for the media query (the
+   no-JS / pre-paint fallback) and once for the explicit `data-theme="dark"`
+   attribute that theme-toggle.js sets. Plain CSS has no way to share them.
+   ========================================================================== */
+
+/* 1. Light Mode (default, and the explicit light override) */
+:root,
+html[data-theme="light"] {
+    --bg-dark: #f8fafc;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-card-hover: rgba(255, 255, 255, 0.95);
+    --bg-header: rgba(248, 250, 252, 0.85);
+    --border-color: rgba(15, 23, 42, 0.08);
+    --border-color-hover: rgba(99, 102, 241, 0.4);
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+
+    /* Accents & Gradients */
+    --accent-indigo: #4f46e5;
+    --accent-violet: #7c3aed;
+    --accent-teal: #0d9488;
+    --accent-blue: #2563eb;
+
+    --grad-primary: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+    --grad-secondary: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+
+    /* Gradients for text headers */
+    --h2-grad: linear-gradient(135deg, #0f172a 30%, #475569 100%);
+    --banner-h2-grad: linear-gradient(135deg, #0f172a 40%, var(--accent-indigo) 100%);
+
+    /* Banner Overlay background gradients */
+    --banner-overlay-start: rgba(248, 250, 252, 0.30);
+    --banner-overlay-end: rgba(248, 250, 252, 0.88);
+
+    /* Banner body text sits on the photo, so it needs more weight than --text-muted */
+    --banner-text-muted: #334155;
+
+    /* Shadows */
+    --shadow-main: 0 15px 35px -10px rgba(15, 23, 42, 0.08);
+    --shadow-glow: 0 10px 25px -5px rgba(99, 102, 241, 0.15);
+    --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+
+    /* Raised surfaces — the cards nested inside a .box (research cards, team
+       cards). These used to be a hardcoded dark slate, which showed up as grey
+       slabs on the white card in light mode. */
+    --surface-raised: rgba(241, 245, 249, 0.75);
+    --surface-raised-hover: rgba(226, 232, 240, 0.9);
+
+    /* Secondary ("alt") buttons. Previously white-on-white here, i.e. invisible.
+       In light mode they read as a tinted outline button instead. */
+    --button-alt-bg: rgba(79, 70, 229, 0.08);
+    --button-alt-bg-hover: rgba(79, 70, 229, 0.16);
+    --button-alt-text: #4f46e5;
+    --button-alt-ring: rgba(79, 70, 229, 0.35);
+    --button-alt-ring-hover: rgba(79, 70, 229, 0.6);
+
+    /* Hover border on .box, and the small publication link pills */
+    --border-hover-subtle: rgba(15, 23, 42, 0.16);
+    --pill-bg: rgba(15, 23, 42, 0.04);
+    --pill-text-hover: #4f46e5;
+
+    /* Publication tag labels. The tag text is ~11pt bold — below the WCAG
+       "large text" threshold — so it needs 4.5:1 against its own tinted pill.
+       The bright dark-mode hues scored 1.9-4.3:1 on a light pill (the amber
+       SciPost tag was effectively unreadable), so light mode uses the darker
+       step of the same hue ramp. Pill backgrounds and borders are unchanged. */
+    --tag-teal: #0f766e;
+    --tag-indigo: #4f46e5;
+    --tag-pink: #be185d;
+    --tag-blue: #1d4ed8;
+    --tag-amber: #92400e;
+    --tag-violet: #7e22ce;
+}
+
+/* 3. Dark Theme Variables (System Preference or Explicit Theme Attribute override) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-dark: #0a0f1d;
+        --bg-card: rgba(22, 30, 49, 0.6);
+        --bg-card-hover: rgba(30, 41, 59, 0.45);
+        --bg-header: rgba(10, 15, 29, 0.85);
+        --border-color: rgba(255, 255, 255, 0.08);
+        --border-color-hover: rgba(129, 140, 248, 0.3);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --accent-indigo: #6366f1;
+        --accent-violet: #8b5cf6;
+        --accent-teal: #14b8a6;
+        --accent-blue: #3b82f6;
+        --grad-primary: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+        --grad-secondary: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+        --h2-grad: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+        --banner-h2-grad: linear-gradient(135deg, #ffffff 40%, var(--accent-indigo) 100%);
+        --banner-overlay-start: rgba(10, 15, 29, 0.45);
+        --banner-overlay-end: rgba(10, 15, 29, 0.92);
+        --banner-text-muted: #94a3b8;
+        --shadow-main: 0 10px 35px -10px rgba(0, 0, 0, 0.5);
+        --shadow-glow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
+        --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+
+        --surface-raised: rgba(30, 41, 59, 0.2);
+        --surface-raised-hover: rgba(30, 41, 59, 0.3);
+
+        --button-alt-bg: rgba(255, 255, 255, 0.08);
+        --button-alt-bg-hover: rgba(255, 255, 255, 0.16);
+        --button-alt-text: #ffffff;
+        --button-alt-ring: rgba(255, 255, 255, 0.25);
+        --button-alt-ring-hover: rgba(255, 255, 255, 0.45);
+
+        --border-hover-subtle: rgba(255, 255, 255, 0.12);
+        --pill-bg: rgba(255, 255, 255, 0.05);
+        --pill-text-hover: #ffffff;
+
+        --tag-teal: #14b8a6;
+        --tag-indigo: #818cf8;
+        --tag-pink: #f472b6;
+        --tag-blue: #60a5fa;
+        --tag-amber: #f59e0b;
+        --tag-violet: #c084fc;
+    }
+}
+
+html[data-theme="dark"] {
+    --bg-dark: #0a0f1d;
+    --bg-card: rgba(22, 30, 49, 0.6);
+    --bg-card-hover: rgba(30, 41, 59, 0.45);
+    --bg-header: rgba(10, 15, 29, 0.85);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-color-hover: rgba(129, 140, 248, 0.3);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-indigo: #6366f1;
+    --accent-violet: #8b5cf6;
+    --accent-teal: #14b8a6;
+    --accent-blue: #3b82f6;
+    --grad-primary: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+    --grad-secondary: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+    --h2-grad: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+    --banner-h2-grad: linear-gradient(135deg, #ffffff 40%, var(--accent-indigo) 100%);
+    --banner-overlay-start: rgba(10, 15, 29, 0.45);
+    --banner-overlay-end: rgba(10, 15, 29, 0.92);
+    --banner-text-muted: #94a3b8;
+    --shadow-main: 0 10px 35px -10px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
+    --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+
+    --surface-raised: rgba(30, 41, 59, 0.2);
+    --surface-raised-hover: rgba(30, 41, 59, 0.3);
+
+    --button-alt-bg: rgba(255, 255, 255, 0.08);
+    --button-alt-bg-hover: rgba(255, 255, 255, 0.16);
+    --button-alt-text: #ffffff;
+    --button-alt-ring: rgba(255, 255, 255, 0.25);
+    --button-alt-ring-hover: rgba(255, 255, 255, 0.45);
+
+    --border-hover-subtle: rgba(255, 255, 255, 0.12);
+    --pill-bg: rgba(255, 255, 255, 0.05);
+    --pill-text-hover: #ffffff;
+
+    --tag-teal: #14b8a6;
+    --tag-indigo: #818cf8;
+    --tag-pink: #f472b6;
+    --tag-blue: #60a5fa;
+    --tag-amber: #f59e0b;
+    --tag-violet: #c084fc;
+}
+
+/* Core Overrides */
+html, body {
+    background-color: var(--bg-dark) !important;
+    color: var(--text-secondary) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 15pt !important;
+    line-height: 1.7em !important;
+    letter-spacing: -0.01em !important;
+}
+
+body.landing {
+    background-color: var(--bg-dark) !important;
+}
+
+#page-wrapper {
+    background: transparent !important;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+}
+
+h2 {
+    font-size: 2.4em !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 0.8em !important;
+}
+
+h3 {
+    font-size: 1.6em !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.6em !important;
+}
+
+p {
+    margin-bottom: 1.8em !important;
+}
+
+/* main.css sets `strong, b { color: #646464; font-weight: 400 }`, a fixed mid-grey at
+   normal weight. That renders emphasis *dimmer* than body text in dark mode and
+   lighter than it in light mode — in both cases de-emphasising the word instead of
+   emphasising it. Deliberately declared without !important so that the more specific
+   rules further down (.pub-authors strong, .cv-entry-body strong, .alumni-item strong)
+   keep their own colours and only inherit the restored weight. */
+strong, b {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+a {
+    color: var(--accent-indigo);
+    border-bottom: 1px dotted rgba(99, 102, 241, 0.4);
+    transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--accent-violet);
+    border-bottom-color: transparent;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+}
+
+/* Header / Navigation */
+#header {
+    background: var(--bg-header) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05) !important;
+    color: var(--text-primary) !important;
+    height: 3.5em !important;
+    line-height: 3.5em !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+#header h1 a {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    color: var(--text-primary) !important;
+}
+
+#header.alt {
+    background: transparent !important;
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+}
+
+#nav > ul > li > a {
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 500 !important;
+    border-bottom: none !important;
+}
+
+#nav > ul > li:hover > a {
+    color: var(--accent-indigo) !important;
+}
+
+/* Banner / Hero Section */
+#banner {
+    background-image: linear-gradient(var(--banner-overlay-start), var(--banner-overlay-end)), url("../../images/banner_pxl1_bottom.jpg") !important;
+    /* The photo is 1920x840 (2.29:1), wider than any window, so `cover` always fits it
+       by height: the crop happens horizontally and the X value is the only one that acts.
+       30% anchors the visible window on the institute (8-42% of the image) instead of the
+       utility pole at dead centre, and because it is a percentage the offset scales with
+       however much gets cropped -- the blossoms (56-79%) stay in frame until ~600px wide.
+       The Y value is inert at most widths; it only bites in the 1280px padding step. */
+    background-position: 30% 30% !important;
+    padding: 14em 0 14em 0 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+#banner h2 {
+    font-size: 3.8em !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    line-height: 1.1em !important;
+    margin-bottom: 0.3em !important;
+}
+
+#banner h3 {
+    font-size: 1.8em !important;
+    font-weight: 400 !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 0.5em !important;
+}
+
+#banner p {
+    font-size: 1.15em !important;
+    color: var(--banner-text-muted) !important;
+}
+
+/* Modernized Buttons with Crystal-Clear Contrast */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+.button,
+.button.primary,
+#banner .button,
+#banner .button.primary {
+    background: var(--grad-primary) !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    border: none !important;
+    box-shadow: var(--shadow-glow) !important;
+    text-shadow: none !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:hover,
+.button.primary:hover,
+#banner .button:hover,
+#banner .button.primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.4) !important;
+    filter: brightness(1.1);
+    color: #ffffff !important;
+}
+
+.button.alt,
+#banner .button.alt {
+    background: var(--button-alt-bg) !important;
+    box-shadow: inset 0 0 0 1px var(--button-alt-ring) !important;
+    color: var(--button-alt-text) !important;
+}
+
+.button.alt:hover,
+#banner .button.alt:hover {
+    background: var(--button-alt-bg-hover) !important;
+    box-shadow: inset 0 0 0 1px var(--button-alt-ring-hover) !important;
+    color: var(--button-alt-text) !important;
+}
+
+/* Glassmorphic Container (.box) */
+.box {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--shadow-main) !important;
+    color: var(--text-secondary) !important;
+    padding: 3em !important;
+    margin-bottom: 2em !important;
+    transition: border-color 0.3s ease;
+}
+
+.box:hover {
+    border-color: var(--border-hover-subtle) !important;
+}
+
+/* Special features cards */
+.box.special.features {
+    padding: 3.5em 3em !important;
+}
+
+/* Card grid. A wrapping flexbox rather than CSS Grid, because grid has no way
+   to centre a short final row: the five research cards land 3+2, and the two
+   stragglers used to sit hard against the left edge with a card-sized hole on
+   the right. Flex splits the leftover space of the last line via
+   `justify-content: center` instead.
+
+   That means the column count has to be spelled out per breakpoint (auto-fit
+   has no flex equivalent), and the thresholds below are measured, not guessed:
+   the row is 1078px wide at a 1440px viewport, 892px at 1100, 739px at 900,
+   576px at 737 and 653px at 736 (the body font-size drops to 11pt there, so the
+   container widens again). Those are exactly the points where the old
+   `minmax(min(280px, 100%), 1fr)` tracks changed count, so the cards still wrap
+   1 / 2 / 3-up at the same widths as before — only the alignment of an
+   incomplete last row is different. */
+.features-row {
+    border: none !important;
+    margin: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+    align-items: stretch;
+}
+
+/* main.css gives every .features-row a clearfix ::after. Harmless while this
+   was a grid; in a flex container the pseudo-element becomes a flex item and
+   would push the centred last row off by one gap. */
+.box.features .features-row:after {
+    display: none !important;
+}
+
+/* The highlighted publications are two stacked .features-row elements, so the
+   flex `gap` never applies between them — under the old grid their spacing came
+   from the implicit row the clearfix ::after left behind, which the rule above
+   removes. Restate it as a margin that matches the gap inside a row, so the
+   vertical and horizontal spacing of the 2x2 block agree. */
+.features-row + .features-row {
+    margin-top: 1.5em !important;
+}
+
+/* The flex items are the <section>s, not the <a> wrappers — .research-card-link
+   is display:contents. Research cards are therefore matched through the link,
+   publication cards as direct children, which is what lets the two rows keep
+   different column counts below. `min-width: 0` overrides the min-content floor
+   flex items get by default, so a long unbroken word cannot widen a card past
+   its share of the row. */
+.features-row > section,
+.features-row > .research-card-link > section {
+    flex: 0 1 100%;
+    min-width: 0;
+}
+
+/* 2-up. 745px is where two 280px tracks started to fit; the 661-736px band is
+   the same threshold recomputed for the smaller phone font-size (and its
+   narrower 1.25em gap). Publication rows go 2-up from 737px, where they always
+   did, and stay single-column below. */
+@media screen and (min-width: 745px) {
+    .features-row > .research-card-link > section {
+        flex-basis: calc((100% - 1.5em) / 2);
+    }
+}
+
+@media screen and (min-width: 661px) and (max-width: 736px) {
+    .features-row > .research-card-link > section {
+        flex-basis: calc((100% - 1.25em) / 2);
+    }
+}
+
+@media screen and (min-width: 737px) {
+    .features-row.pub-row > section {
+        flex-basis: calc((100% - 1.5em) / 2);
+    }
+}
+
+/* 3-up research cards. Publication rows keep the 2-up basis set above. */
+@media screen and (min-width: 1100px) {
+    .features-row > .research-card-link > section {
+        flex-basis: calc((100% - 3em) / 3);
+    }
+}
+
+/* Team strip on the homepage. Four members used to wrap 3+1 and orphan the
+   fourth. Explicit column counts rather than auto-fit: with exactly four items
+   auto-fit produces a 3+1 orphan again in the 600-800px band, whereas 2 or 4
+   columns always divide evenly. */
+.home-team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.4em 1.5em;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+@media screen and (min-width: 981px) {
+    .home-team-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.research-card-link {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: inherit !important;
+    display: contents; /* lets the inner <section> participate in flexbox as if the <a> weren't there */
+}
+
+/* Hide the legacy theme separator lines and borders inside features */
+.box.features .features-row section:nth-child(2n):before,
+.box.features .features-row section::before {
+    display: none !important;
+}
+
+.box.features .features-row section {
+    border-top: 0 !important;
+}
+
+.features-row section {
+    border: 1px solid var(--border-color) !important;
+    background: var(--surface-raised) !important;
+    border-radius: 12px !important;
+    padding: 2.2em 2em !important;
+    float: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+@media screen and (max-width: 736px) {
+    .box.features .features-row section {
+        border-top: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 2.2em !important;
+    }
+}
+
+.features-row section:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-color-hover) !important;
+    box-shadow: var(--shadow-glow) !important;
+    background: var(--surface-raised-hover) !important;
+}
+
+.features-row section h3 {
+    margin-top: 0.5em !important;
+    font-size: 1.3em !important;
+    font-weight: 600 !important;
+}
+
+.features-row section p {
+    font-size: 0.95em !important;
+    margin-bottom: 0 !important;
+    color: var(--text-secondary);
+}
+
+/* Profile Picture & Initials Avatars */
+.avatar-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 1.2em auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+    transition: all 0.3s ease;
+}
+
+.avatar-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 12px 25px rgba(99, 102, 241, 0.3);
+}
+
+.avatar-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--bg-dark);
+}
+
+.avatar-fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 2.2em;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Unique Gradients for team fallbacks */
+.avatar-ls {
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%) !important;
+}
+
+.avatar-dt {
+    background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%) !important;
+}
+
+.avatar-ag {
+    background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+}
+
+.team-card-link {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: inherit !important;
+    display: block;
+}
+
+.team-card-inner {
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.team-card-link:hover .team-card-inner {
+    transform: translateY(-4px);
+    background: rgba(99, 102, 241, 0.08);
+}
+
+.team-card-link:hover .avatar-wrapper img {
+    box-shadow: 0 0 0 3px var(--accent-indigo), 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* Person grid in team.html */
+.person-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2em;
+    margin: 2em 0;
+}
+
+.person-card {
+    text-align: center;
+    background: var(--surface-raised);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2.5em 2em;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.person-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-glow);
+    background: var(--surface-raised-hover);
+}
+
+.person-card h4 {
+    margin: 0.5em 0 0.2em 0 !important;
+    font-size: 1.25em !important;
+    font-weight: 600 !important;
+}
+
+.person-card p {
+    font-size: 0.9em !important;
+    margin: 0 !important;
+    color: var(--text-secondary) !important;
+}
+
+.person-card p a {
+    border-bottom: none;
+}
+
+/* Larger team detail view avatars */
+.person-grid-large {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5em;
+    margin: 2.5em 0;
+    justify-content: center;
+}
+
+.large-avatar {
+    width: 150px;
+    height: 150px;
+}
+
+/* Alumni section table/styling */
+.alumni-list {
+    margin-top: 1.5em;
+    border-left: 2px solid var(--accent-indigo);
+    padding-left: 1.5em;
+}
+
+.alumni-item {
+    margin-bottom: 1em;
+}
+
+.alumni-item strong {
+    color: var(--text-primary);
+}
+
+.alumni-item span {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+/* CV page timeline overrides */
+.cv-section h3 {
+    border-bottom: 2px solid var(--accent-indigo) !important;
+    color: var(--text-primary) !important;
+}
+
+.cv-entry {
+    border-left: 2px solid rgba(99, 102, 241, 0.2);
+    padding-left: 2em;
+    position: relative;
+    margin-bottom: 2.2em !important;
+    gap: 0 !important;
+}
+
+.cv-entry::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-indigo);
+    border: 2px solid var(--bg-dark);
+    box-shadow: 0 0 8px var(--accent-indigo);
+}
+
+.cv-entry:hover::before {
+    background: var(--accent-violet);
+    box-shadow: 0 0 12px var(--accent-violet);
+    transform: scale(1.2);
+}
+
+.cv-year {
+    font-size: 0.9em !important;
+    font-weight: 700 !important;
+    color: var(--accent-indigo) !important;
+    margin-bottom: 0.4em;
+    display: block;
+}
+
+.cv-entry-body strong {
+    color: var(--text-primary) !important;
+    font-size: 1.15em !important;
+    font-weight: 600 !important;
+}
+
+.cv-entry-body span {
+    color: var(--text-secondary) !important;
+}
+
+.cv-entry-body em {
+    color: var(--text-muted) !important;
+}
+
+/* Publications page overrides */
+.pub-year-header {
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 1.3em !important;
+    font-weight: 700 !important;
+    margin-top: 2.2em !important;
+    margin-bottom: 1.2em !important;
+}
+
+.pub-list li {
+    border-left: 3px solid var(--accent-indigo) !important;
+    background: var(--bg-card) !important;
+    border-radius: 0 12px 12px 0;
+    padding: 1.2em 1.5em !important;
+    margin-bottom: 1.2em !important;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    border-left-width: 3px !important;
+}
+
+.pub-list li:hover {
+    transform: translateX(4px);
+    border-color: var(--border-color-hover);
+    background: var(--bg-card-hover) !important;
+}
+
+/* These three are <span>s in the markup, so without an explicit display they flow
+   inline and every entry renders as one run-on line ("...Fuzzy Sphere E. Huffman,
+   Z. Zhou..."). Stack them into the intended title / authors / journal block. */
+.pub-list li .pub-title {
+    display: block;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    line-height: 1.4em;
+    margin-bottom: 0.3em;
+}
+
+.pub-list li .pub-authors {
+    display: block;
+    color: var(--text-secondary) !important;
+    font-size: 0.92em;
+    line-height: 1.5em;
+}
+
+.pub-list li .pub-authors strong {
+    color: var(--accent-indigo);
+}
+
+.pub-list li .pub-journal {
+    display: block;
+    color: var(--text-muted) !important;
+    font-size: 0.9em;
+    margin-top: 0.15em;
+}
+
+/* Category Badge Tags for publications */
+.pub-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-top: 0.5em;
+    flex-wrap: wrap;
+}
+
+.pub-tag {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+}
+
+.pub-tag:hover {
+    filter: brightness(1.2);
+    text-decoration: none !important;
+}
+
+.pub-tag.preprint {
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--tag-teal);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.pub-tag.journal {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--tag-indigo);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.pub-tag.prx, .pub-tag.prl {
+    background: rgba(236, 72, 153, 0.15);
+    color: var(--tag-pink);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.pub-tag.prb {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--tag-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Physical Review D — added when the SU(2) QCD paper was published there.
+   5.74:1 light / 5.67:1 dark against its own pill, same as the other tags. */
+.pub-tag.prd {
+    background: rgba(168, 85, 247, 0.15);
+    color: var(--tag-violet);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.pub-tag.scipost {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--tag-amber);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.pub-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: 0.8em !important;
+    background: var(--pill-bg);
+    border: 1px solid var(--border-color);
+    padding: 0.25em 0.7em !important;
+    border-radius: 6px;
+    color: var(--text-secondary) !important;
+    text-decoration: none;
+    border-bottom: none !important;
+}
+
+.pub-link-btn:hover {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: var(--accent-indigo);
+    color: var(--pill-text-hover) !important;
+}
+
+/* Footer Section */
+#footer {
+    background: var(--bg-dark) !important;
+    border-top: 1px solid var(--border-color) !important;
+    padding: 4em 0 !important;
+    color: var(--text-muted) !important;
+}
+
+#footer .icons a {
+    border-bottom: none !important;
+    color: var(--text-muted) !important;
+    transition: color 0.2s ease;
+}
+
+#footer .icons a:hover {
+    color: var(--accent-indigo) !important;
+}
+
+#footer .copyright {
+    color: var(--text-muted) !important;
+}
+
+#footer .copyright a {
+    color: var(--text-secondary) !important;
+}
+
+#footer .copyright a:hover {
+    color: var(--accent-indigo) !important;
+}
+
+/* Dropdown navigation menu (Dropotron) */
+.dropotron {
+    background: var(--bg-header) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-main) !important;
+    border-radius: 8px !important;
+    padding: 0.5em 0 !important;
+}
+
+.dropotron li a {
+    color: var(--text-primary) !important;
+    border-top-color: var(--border-color) !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.dropotron li:hover > a {
+    background: var(--bg-card-hover) !important;
+    color: var(--accent-indigo) !important;
+}
+
+/* Mobile navPanel overrides */
+#navPanel {
+    background: var(--bg-dark) !important;
+    color: var(--text-secondary) !important;
+    border-right: 1px solid var(--border-color) !important;
+}
+
+#navPanel .link {
+    color: var(--text-primary) !important;
+    border-top-color: var(--border-color) !important;
+}
+
+#navPanel .link.depth-0 {
+    color: var(--accent-indigo) !important;
+    font-weight: 600 !important;
+}
+
+/* Mobile navButton overrides */
+#navButton .toggle:before {
+    background: var(--bg-header) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    box-shadow: var(--shadow-main) !important;
+    border-radius: 6px !important;
+}
+
+/* Theme Toggle Button Styling */
+.theme-toggle-btn {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    padding: 0 0.8em !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--text-primary) !important;
+    height: 100% !important;
+    font-size: 1.15em !important;
+    transition: color 0.2s ease, transform 0.2s ease !important;
+    outline: none !important;
+}
+
+.theme-toggle-btn:hover {
+    color: var(--accent-indigo) !important;
+    transform: scale(1.1) !important;
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.9) !important;
+}
+
+/* ALF is the group's main software contribution, so on research.html it gets a
+   callout treatment rather than sitting as one bullet among equals. */
+.alf-callout {
+    border-left: 3px solid var(--accent-indigo);
+    padding-left: 1.6em;
+}
+
+.alf-callout .alf-actions {
+    margin-bottom: 0 !important;
+}
+
+/* The MPS+QMC work is a contribution rather than something we drive, so it sits
+   below the rule as a smaller, muted note instead of competing with ALF. */
+.software-note {
+    margin-top: 2em !important;
+    padding-top: 1.5em;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.92em !important;
+    color: var(--text-muted) !important;
+}
+
+.software-note strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Active page indicator. nav-active.js adds .is-current (and aria-current) to
+   the matching link in both navigations -- see that file for why it is derived
+   from the URL rather than written into each page's markup. */
+/* Underline rather than an absolutely-positioned bar: #header sets
+   line-height: 3.5em, so the link box is far taller than the text and any
+   bottom-anchored pseudo-element lands across the glyphs like a strikethrough.
+   text-underline-offset draws relative to the baseline instead. */
+#nav > ul > li.is-current > a {
+    color: var(--accent-indigo) !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 7px !important;
+    text-decoration-color: var(--accent-indigo) !important;
+}
+
+/* In the slide-out menu every top-level link is already indigo, so the active
+   one is marked with a bar and a tint rather than a colour change. */
+#navPanel a.is-current {
+    background: rgba(99, 102, 241, 0.12);
+    box-shadow: inset 3px 0 0 0 var(--accent-indigo);
+    font-weight: 700 !important;
+}
+
+/* Theme toggle inside the mobile slide-out menu. theme-toggle.js injects this
+   entry because util.js's navList() only copies <a> elements, so the desktop
+   <button> never reached the panel. */
+#navPanel .theme-toggle-link {
+    cursor: pointer;
+}
+
+#navPanel .theme-toggle-link .theme-toggle-icon {
+    margin-right: 0.65em;
+}
+
+/* Adjust navigation bar layout to align the toggle button nicely */
+#nav > ul {
+    display: flex !important;
+    align-items: center !important;
+}
+
+#nav > ul > li {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* ==========================================================================
+   Responsive overrides
+   --------------------------------------------------------------------------
+   main.css already ships a full responsive ladder (breakpoints at 1280 / 980 /
+   840 / 736 / 480px) that steps the root font size down from 16pt to 11pt and
+   shrinks the banner, headings and box padding along with it. Every one of the
+   sizing rules above uses `!important`, which silently defeated that ladder, so
+   a phone was rendering the desktop layout at desktop scale: the hero was
+   clipped mid-word and the third banner button sat entirely off-screen.
+
+   These blocks re-establish the ladder on top of the custom design. They start
+   at 1280px so the desktop appearance at >=1281px is untouched. Breakpoints
+   deliberately mirror main.css so the two sheets step together rather than
+   fighting each other.
+   ========================================================================== */
+
+/* --- Small laptops / landscape tablets ---------------------------------- */
+@media screen and (max-width: 1280px) {
+    html, body { font-size: 13pt !important; }
+
+    /* main.css pulls the landing page's first content box up over the banner
+       with the *base* rule `body.landing #main { margin-top: -14em }`, which it
+       only resets at <=736px. That -14em is sized against main.css's own 18-20em
+       banner bottom padding; the custom banner is far shorter, so from 737px up
+       the box rides up over the hero buttons (worst at iPad-portrait widths,
+       where the buttons end up behind the frosted panel). Drop the pull below
+       desktop and let the banner's own bottom padding set the gap instead. */
+    body.landing #main { margin-top: 0 !important; }
+
+    #banner { padding: 11em 1.5em 3.5em 1.5em !important; }
+    #banner h2 { font-size: 3.2em !important; }
+}
+
+/* --- Portrait tablets --------------------------------------------------- */
+@media screen and (max-width: 980px) {
+    html, body { font-size: 12pt !important; }
+
+    #banner { padding: 9em 1.5em 3em 1.5em !important; }
+    #banner h2 { font-size: 2.8em !important; }
+    #banner h3 { font-size: 1.5em !important; }
+
+    .box,
+    .box.special.features { padding: 2.5em 2em !important; }
+}
+
+/* --- main.css hides #header here and swaps in the hamburger #navButton --- */
+@media screen and (max-width: 840px) {
+    #banner { padding: 8em 1.5em 3em 1.5em !important; }
+}
+
+/* --- Phones (landscape) and small tablets ------------------------------- */
+@media screen and (max-width: 736px) {
+    html, body { font-size: 11pt !important; }
+
+    h2 { font-size: 1.9em !important; }
+    h3 { font-size: 1.35em !important; }
+    p  { margin-bottom: 1.4em !important; }
+
+    /* The base rule is `padding: 14em 0` — no horizontal padding at all, so
+       hero text ran straight into both viewport edges. */
+    #banner { padding: 7em 1.25em 3em 1.25em !important; }
+    #banner h2 { font-size: 2.3em !important; line-height: 1.15em !important; }
+    #banner h3 { font-size: 1.25em !important; }
+    #banner p  { font-size: 1em !important; }
+
+    .box,
+    .box.special.features { padding: 2em 1.25em !important; }
+
+    /* The -1.5em side gutters are a desktop device; at this width they push the
+       card grid past the edge of its own container. */
+    .features-row {
+        gap: 1.25em;
+    }
+
+    /* Keep the row-to-row spacing in step with the tighter gap. */
+    .features-row + .features-row {
+        margin-top: 1.25em !important;
+    }
+
+    .features-row section {
+        padding: 1.75em 1.25em !important;
+    }
+
+    /* `ul.actions` is display:flex with no flex-wrap, so the three banner
+       buttons could never break onto a second line — they just overflowed. */
+    ul.actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 0.75em;
+    }
+
+    .person-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+    }
+
+    .person-card { padding: 2em 1.5em; }
+
+    /* research.html floats its topic figures right via inline styles. Once the
+       figure fills the whole column there is nothing left to wrap around it, and
+       the float strands the paragraph's first word ("A") on a line above the
+       image. Stack figure and text instead. !important is needed because the
+       float is set inline on the element. */
+    #main .box > div > img {
+        float: none !important;
+        display: block;
+        margin: 0 auto 1.5em auto !important;
+    }
+}
+
+/* --- Phones (portrait) -------------------------------------------------- */
+@media screen and (max-width: 480px) {
+    #banner { padding: 6em 1em 2.5em 1em !important; }
+    #banner h2 { font-size: 1.95em !important; }
+    #banner h3 { font-size: 1.15em !important; }
+
+    .box,
+    .box.special.features { padding: 1.75em 1em !important; }
+
+    /* main.css already makes each action item full width at this breakpoint,
+       but the parent stays a flex *row*, so the buttons kept sharing one line.
+       Switching the axis is what actually stacks them. */
+    ul.actions { flex-direction: column; align-items: stretch; }
+
+    .avatar-wrapper { width: 96px; height: 96px; }
+    .alumni-list { padding-left: 1em; }
+}

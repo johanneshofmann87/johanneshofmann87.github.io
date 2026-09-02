@@ -1,0 +1,8 @@
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Local image sources and generator artefacts; not part of the published site
+images_orig/
+__pycache__/
+*.py[cod]
