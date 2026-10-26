@@ -668,6 +668,12 @@ input[type="button"]:hover,
     border-bottom: none;
 }
 
+.person-card p.person-bio {
+    margin-top: 1em !important;
+    text-align: left;
+    line-height: 1.6;
+}
+
 /* Larger team detail view avatars */
 .person-grid-large {
     display: flex;
