@@ -473,6 +473,22 @@ input[type="button"]:hover,
     }
 }
 
+/* Highlighted-publication figures. A fixed aspect ratio rather than a fixed
+   max-height: with only the height capped, the box's shape followed the card
+   width, so object-fit cropped a different slice of each figure at every window
+   size. The images are dedicated panel crops (images/pub_*.png), and `contain`
+   letterboxes those whose shape differs from 12:5 on white, matching the
+   figures' own background. */
+.pub-row .pub-thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 12 / 5;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 4px;
+    margin-bottom: 1em;
+}
+
 /* Team strip on the homepage. Four members used to wrap 3+1 and orphan the
    fourth. Explicit column counts rather than auto-fit: with exactly four items
    auto-fit produces a 3+1 orphan again in the 600-800px band, whereas 2 or 4
@@ -628,12 +644,52 @@ input[type="button"]:hover,
     box-shadow: 0 0 0 3px var(--accent-indigo), 0 8px 24px rgba(0,0,0,0.3);
 }
 
-/* Person grid in team.html */
+/* Person grid in team.html. One full-width card per row: with bios the cards
+   became tall, and the old auto-fill grid left empty columns next to a section
+   with only one or two members. Inside a card, photo/name/position sit in a
+   fixed column on the left and the bio fills the rest, mirroring the PI block;
+   they stack again on narrow screens (see the 900px query below). */
 .person-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2em;
     margin: 2em 0;
+}
+
+.person-grid > .person-card {
+    display: flex;
+    align-items: center;
+    gap: 2.5em;
+}
+
+/* At least 220px so all photos line up; grows instead of wrapping a long
+   name onto two lines at the larger desktop font size. */
+.person-grid .person-id {
+    flex: 0 0 auto;
+    min-width: 220px;
+}
+
+.person-grid .person-id h4 {
+    white-space: nowrap;
+}
+
+.person-grid .person-card p.person-bio {
+    flex: 1 1 auto;
+    margin-top: 0 !important;
+}
+
+@media screen and (max-width: 900px) {
+    .person-grid > .person-card {
+        display: block;
+    }
+
+    .person-grid .person-id h4 {
+        white-space: normal;
+    }
+
+    .person-grid .person-card p.person-bio {
+        margin-top: 1em !important;
+    }
 }
 
 .person-card {
