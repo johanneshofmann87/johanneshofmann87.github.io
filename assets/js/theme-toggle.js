@@ -37,14 +37,17 @@
     }
 
     // 2. One delegated listener covers every toggle, including the mobile one
-    //    that is injected below after main.js has built the panel.
+    //    that is injected below after main.js has built the panel. It listens
+    //    in the capture phase: util.js's panel() calls stopPropagation() on
+    //    every click inside #navPanel, so a bubbling listener on document never
+    //    saw taps on the mobile entry.
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.theme-toggle-btn, .theme-toggle-link');
         if (!btn) return;
         e.preventDefault();
         const current = document.documentElement.getAttribute('data-theme') || 'dark';
         applyTheme(current === 'dark' ? 'light' : 'dark');
-    });
+    }, true);
 
     // 3. Add the toggle to the mobile slide-out menu.
     //    main.js builds #navPanel from $('#nav').navList(), and navList() only
